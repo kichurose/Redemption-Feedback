@@ -1,0 +1,83 @@
+<div class="feedback-container">
+  <div class="feedback-content">
+    <h3 class="feedback-title">How was your experience?</h3>
+    <p class="feedback-description">We'd love to hear your thoughts about the redemption process</p>
+    
+    <div class="rating-section">
+      <label class="rating-label">Rating</label>
+      <div class="stars-container">
+        <button 
+          *ngFor="let star of stars" 
+          type="button"
+          class="star-button"
+          [class.filled]="star <= rating"
+          [class.hovered]="star <= rating"
+          (click)="setRating(star)"
+          [disabled]="isSubmitting"
+        >
+          ★
+        </button>
+      </div>
+    </div>
+
+    <div class="feedback-section">
+      <label for="feedback" class="feedback-label">
+        Additional Comments <span class="optional">(Optional)</span>
+      </label>
+      <textarea
+        id="feedback"
+        name="feedback"
+        class="feedback-textarea"
+        [(ngModel)]="feedback"
+        placeholder="Tell us about your experience..."
+        rows="4"
+        [disabled]="isSubmitting"
+      ></textarea>
+    </div>
+
+    <div class="button-group">
+      <button
+        type="button"
+        class="skip-button"
+        (click)="onSkip()"
+        [disabled]="isSubmitting"
+      >
+        Skip
+      </button>
+      
+      <button
+        type="button"
+        class="submit-button"
+        (click)="onSubmitFeedback()"
+        [disabled]="isSubmitting || rating === 0"
+      >
+        <span *ngIf="!isSubmitting">Submit Feedback</span>
+        <span *ngIf="isSubmitting" class="loading-text">
+          <span class="spinner"></span>
+          Submitting...
+        </span>
+      </button>
+    </div>
+
+    <div *ngIf="message" class="message" [ngClass]="messageType">
+      {{ message }}
+    </div>
+  </div>
+
+  <!-- Chatbot Button -->
+  <button 
+    class="chatbot-trigger" 
+    (click)="openChatbot()"
+    [class.hidden]="showChatbot"
+    aria-label="Open chat support"
+  >
+    <span class="chatbot-icon">💬</span>
+    <span class="chatbot-text">Need Help?</span>
+  </button>
+
+  <!-- Chatbot Component -->
+  <app-chatbot 
+    *ngIf="showChatbot"
+    (closeChatbot)="closeChatbot()">
+  </app-chatbot>
+</div>

@@ -1,0 +1,78 @@
+<div class="redemption-portal">
+  <!-- Redemption Form -->
+  <div class="portal-container" *ngIf="!showFeedback">
+    <h2 class="portal-title">Redemption Portal</h2>
+    <p class="portal-description">Enter your details below to redeem your reward</p>
+    
+    <form class="redemption-form" (ngSubmit)="onRedeem()" #redemptionForm="ngForm">
+      <div class="form-group">
+        <label for="email" class="form-label">Email Address</label>
+        <input
+          type="email"
+          id="email"
+          name="email"
+          class="form-input"
+          [(ngModel)]="email"
+          placeholder="Enter your email address"
+          required
+          [disabled]="isSubmitting || redemptionComplete"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="claimCode" class="form-label">Claim Code</label>
+        <input
+          type="text"
+          id="claimCode"
+          name="claimCode"
+          class="form-input"
+          [(ngModel)]="claimCode"
+          placeholder="Enter 5-letter code (e.g., HAPPY)"
+          required
+          maxlength="5"
+          [disabled]="isSubmitting || redemptionComplete"
+        />
+      </div>
+
+      <button
+        type="submit"
+        class="redeem-button"
+        [disabled]="isSubmitting || !redemptionForm.form.valid || redemptionComplete"
+      >
+        <span *ngIf="!isSubmitting">Redeem</span>
+        <span *ngIf="isSubmitting" class="loading-text">
+          <span class="spinner"></span>
+          Processing...
+        </span>
+      </button>
+    </form>
+
+    <div *ngIf="message" class="message" [ngClass]="messageType">
+      {{ message }}
+    </div>
+
+    <!-- Chatbot Button for Redemption Portal -->
+    <button 
+      class="chatbot-trigger" 
+      (click)="openChatbot()"
+      [class.hidden]="showChatbot"
+      aria-label="Open chat support"
+    >
+      <span class="chatbot-icon">💬</span>
+      <span class="chatbot-text">Need Help?</span>
+    </button>
+  </div>
+
+  <!-- Feedback Component -->
+  <app-feedback 
+    *ngIf="showFeedback"
+    (feedbackSubmitted)="onFeedbackSubmitted()"
+    (skipFeedback)="onSkipFeedback()">
+  </app-feedback>
+
+  <!-- Chatbot Component for Redemption Portal -->
+  <app-chatbot 
+    *ngIf="showChatbot && !showFeedback"
+    (closeChatbot)="closeChatbot()">
+  </app-chatbot>
+</div>
