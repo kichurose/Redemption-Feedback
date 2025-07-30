@@ -1,0 +1,49 @@
+// Blackhawk Network Header
+.app-header {
+  background: white;
+  color: #1c355e;
+  padding: 16px 0;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+}
+
+.header-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.brand-logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 1.2rem;
+}
+
+.brand-text {
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+// Add top margin to main content to account for fixed header
+:host {
+  display: block;
+}
+
+@media (max-width: 768px) {
+  .brand-text {
+    font-size: 1rem;
+  }
+  
+  :host {
+    padding-top: 60px;
+  }
+}

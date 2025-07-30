@@ -4,8 +4,10 @@
       <div class="header-content">
         <div class="bot-avatar">🤖</div>
         <div class="bot-info">
-          <h4>Support Assistant</h4>
-          <span class="status">Online</span>
+          <h4>AI Support Assistant</h4>
+          <span class="status" [ngClass]="{'ai-enabled': aiEnabled, 'ai-fallback': !aiEnabled}">
+            {{ aiEnabled ? 'AI Powered' : 'Smart Assistant' }}
+          </span>
         </div>
       </div>
       <button class="close-button" (click)="onClose()" aria-label="Close chat">

@@ -1,81 +1,120 @@
 <div class="feedback-container">
-  <div class="feedback-content">
-    <h3 class="feedback-title">How was your experience?</h3>
-    <p class="feedback-description">We'd love to hear your thoughts about the redemption process</p>
-    
-    <div class="rating-section">
-      <label class="rating-label">Rating</label>
-      <div class="stars-container">
-        <button 
-          *ngFor="let star of stars" 
+  <div class="feedback-card">
+    <!-- Header Section -->
+    <div class="feedback-header">
+      
+      <h2 class="feedback-title">Share Your Experience</h2>
+      <p class="feedback-subtitle">Your feedback helps us improve our service</p>
+    </div>
+
+    <!-- Form Content -->
+    <div class="feedback-form">
+      <!-- Personal Info Row -->
+      <div class="form-row">
+        <div class="form-group full-width">
+          <label for="name" class="form-label">
+           
+            Name
+          </label>
+          <input
+            id="name"
+            name="name"
+            type="text"
+            class="form-input"
+            [(ngModel)]="name"
+            placeholder="Your full name"
+            [disabled]="isSubmitting"
+            required
+          />
+        </div>
+      </div>
+      
+      <!-- Rating Section -->
+      <div class="rating-section">
+        <label class="form-label">
+         
+          How would you rate your experience?
+        </label>
+        <div class="rating-container">
+          <div class="stars-wrapper">
+            <button 
+              *ngFor="let star of stars; let i = index" 
+              type="button"
+              class="star-btn emoji-rating"
+              [class.active]="star <= rating"
+              [class.hover]="star <= rating"
+              (click)="setRating(star)"
+              [disabled]="isSubmitting"
+            >
+              <span class="emoji-star">{{ getEmojiForRating(star) }}</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Feedback Section -->
+      <div class="feedback-section">
+        <label for="feedback" class="form-label">
+         
+          Tell us more about your experience
+        </label>
+        <textarea
+          id="feedback"
+          name="feedback"
+          class="form-textarea"
+          [(ngModel)]="feedback"
+          placeholder="Share your thoughts, suggestions, or any issues you encountered..."
+          rows="2"
+          [disabled]="isSubmitting"
+          required
+        ></textarea>
+      </div>
+
+      <!-- Message Display -->
+      <div *ngIf="message" class="message" [ngClass]="messageType">
+        <i class="message-icon" [innerHTML]="messageType === 'success' ? '✅' : '⚠️'"></i>
+        {{ message }}
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="button-group">
+        <button
           type="button"
-          class="star-button"
-          [class.filled]="star <= rating"
-          [class.hovered]="star <= rating"
-          (click)="setRating(star)"
+          class="btn btn-secondary"
+          (click)="onSkip()"
           [disabled]="isSubmitting"
         >
-          ★
+          Skip for now
+        </button>
+        
+        <button
+          type="button"
+          class="btn btn-primary"
+          (click)="onSubmitFeedback()"
+          [disabled]="isSubmitting"
+        >
+          <span *ngIf="!isSubmitting" class="btn-content">
+          
+            Submit Feedback
+          </span>
+          <span *ngIf="isSubmitting" class="btn-loading">
+            <i class="spinner"></i>
+            Submitting...
+          </span>
         </button>
       </div>
-    </div>
-
-    <div class="feedback-section">
-      <label for="feedback" class="feedback-label">
-        Additional Comments <span class="optional">(Optional)</span>
-      </label>
-      <textarea
-        id="feedback"
-        name="feedback"
-        class="feedback-textarea"
-        [(ngModel)]="feedback"
-        placeholder="Tell us about your experience..."
-        rows="4"
-        [disabled]="isSubmitting"
-      ></textarea>
-    </div>
-
-    <div class="button-group">
-      <button
-        type="button"
-        class="skip-button"
-        (click)="onSkip()"
-        [disabled]="isSubmitting"
-      >
-        Skip
-      </button>
-      
-      <button
-        type="button"
-        class="submit-button"
-        (click)="onSubmitFeedback()"
-        [disabled]="isSubmitting || rating === 0"
-      >
-        <span *ngIf="!isSubmitting">Submit Feedback</span>
-        <span *ngIf="isSubmitting" class="loading-text">
-          <span class="spinner"></span>
-          Submitting...
-        </span>
-      </button>
-    </div>
-
-    <div *ngIf="message" class="message" [ngClass]="messageType">
-      {{ message }}
     </div>
   </div>
 
   <!-- Chatbot Button -->
-  <button 
-    class="chatbot-trigger" 
-    (click)="openChatbot()"
-    [class.hidden]="showChatbot"
-    aria-label="Open chat support"
-  >
-    <span class="chatbot-icon">💬</span>
-    <span class="chatbot-text">Need Help?</span>
-  </button>
-
-  <!-- Chatbot Component -->
+    <button 
+      class="chatbot-trigger" 
+      (click)="openChatbot()"
+      [class.hidden]="showChatbot"
+      aria-label="Open AI chat support"
+    >
+      <span class="chatbot-icon">🤖</span>
+    </button>  <!-- Chatbot Component -->
   <app-chatbot 
     *ngIf="showChatbot"
     (closeChatbot)="closeChatbot()">

@@ -20,6 +20,7 @@ export class RedemptionPortalComponent {
   showFeedback: boolean = false;
   redemptionComplete: boolean = false;
   showChatbot: boolean = false;
+  userEmailForFeedback: string = '';
 
   onRedeem() {
     // Validate inputs
@@ -53,6 +54,9 @@ export class RedemptionPortalComponent {
       if (validCodes.includes(this.claimCode.toUpperCase())) {
         this.showMessage('Redemption successful! Your reward has been processed.', 'success');
         this.redemptionComplete = true;
+        
+        // Store email for feedback form before resetting
+        this.userEmailForFeedback = this.email;
         this.resetForm();
         
         // Show feedback form after a short delay

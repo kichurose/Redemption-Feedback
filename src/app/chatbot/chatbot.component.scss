@@ -6,10 +6,11 @@
   bottom: 0;
   background: rgba(0, 0, 0, 0.5);
   display: flex;
-  justify-content: center;
-  align-items: center;
+  justify-content: flex-end;
+  align-items: flex-end;
   z-index: 1000;
   animation: fadeIn 0.3s ease-out;
+  padding: 20px;
 }
 
 @keyframes fadeIn {
@@ -21,7 +22,7 @@
   background: white;
   border-radius: 16px;
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
-  width: 90%;
+  width: 400px;
   max-width: 400px;
   height: 600px;
   max-height: 80vh;
@@ -33,11 +34,11 @@
 @keyframes slideUp {
   from { 
     opacity: 0;
-    transform: translateY(30px) scale(0.95);
+    transform: translateY(100px) translateX(50px) scale(0.8);
   }
   to { 
     opacity: 1;
-    transform: translateY(0) scale(1);
+    transform: translateY(0) translateX(0) scale(1);
   }
 }
 
@@ -46,7 +47,7 @@
   justify-content: space-between;
   align-items: center;
   padding: 16px 20px;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #1c355e 0%, #0f1e36 100%);
   color: white;
   border-radius: 16px 16px 0 0;
 }
@@ -77,6 +78,20 @@
 .status {
   font-size: 0.8rem;
   opacity: 0.9;
+  padding: 2px 6px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.2);
+  
+  &.ai-enabled {
+    background: rgba(129, 204, 0, 0.3);
+    color: #fff;
+    font-weight: 600;
+  }
+  
+  &.ai-fallback {
+    background: rgba(255, 255, 255, 0.2);
+    color: #fff;
+  }
 }
 
 .close-button {
@@ -137,7 +152,7 @@
   flex-shrink: 0;
 
   &.user-avatar {
-    background: #667eea;
+    background: #81cc00;
     color: white;
   }
 }
@@ -157,7 +172,7 @@
   word-wrap: break-word;
 
   .user-message & {
-    background: #667eea;
+    background: #81cc00;
     color: white;
     border-radius: 16px 16px 4px 16px;
   }
@@ -194,7 +209,7 @@
   span {
     width: 6px;
     height: 6px;
-    background: #667eea;
+    background: #81cc00;
     border-radius: 50%;
     animation: typing 1.4s infinite ease-in-out;
 
@@ -264,7 +279,7 @@
 
   &:focus {
     outline: none;
-    border-color: #667eea;
+    border-color: #81cc00;
   }
 
   &:disabled {
@@ -276,7 +291,7 @@
 .send-button {
   width: 40px;
   height: 40px;
-  background: #667eea;
+  background: #81cc00;
   color: white;
   border: none;
   border-radius: 50%;
@@ -287,7 +302,7 @@
   transition: all 0.2s ease;
 
   &:hover:not(:disabled) {
-    background: #5a6fd8;
+    background: #6ba500;
     transform: scale(1.05);
   }
 
@@ -337,4 +352,39 @@
 
 .chat-messages::-webkit-scrollbar-thumb:hover {
   background: #999;
+}
+
+// Responsive positioning for bottom-right chatbot
+@media (max-width: 768px) {
+  .chatbot-overlay {
+    padding: 10px;
+    align-items: flex-end;
+    justify-content: flex-end;
+  }
+  
+  .chatbot-container {
+    width: calc(100vw - 20px);
+    max-width: 360px;
+    height: 70vh;
+    margin: 0;
+  }
+  
+  @keyframes slideUp {
+    from { 
+      opacity: 0;
+      transform: translateY(100px) translateX(50px) scale(0.9);
+    }
+    to { 
+      opacity: 1;
+      transform: translateY(0) translateX(0) scale(1);
+    }
+  }
+}
+
+@media (min-width: 769px) {
+  .chatbot-container {
+    width: 400px;
+    height: 600px;
+    max-height: 80vh;
+  }
 }

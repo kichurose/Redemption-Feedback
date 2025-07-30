@@ -1,9 +1,6 @@
 <div class="redemption-portal">
   <!-- Redemption Form -->
   <div class="portal-container" *ngIf="!showFeedback">
-    <h2 class="portal-title">Redemption Portal</h2>
-    <p class="portal-description">Enter your details below to redeem your reward</p>
-    
     <form class="redemption-form" (ngSubmit)="onRedeem()" #redemptionForm="ngForm">
       <div class="form-group">
         <label for="email" class="form-label">Email Address</label>
@@ -56,16 +53,16 @@
       class="chatbot-trigger" 
       (click)="openChatbot()"
       [class.hidden]="showChatbot"
-      aria-label="Open chat support"
+      aria-label="Open AI chat support"
     >
-      <span class="chatbot-icon">💬</span>
-      <span class="chatbot-text">Need Help?</span>
+      <span class="chatbot-icon">🤖</span>
     </button>
-  </div>
+  </div> 
 
   <!-- Feedback Component -->
   <app-feedback 
     *ngIf="showFeedback"
+    [userEmail]="userEmailForFeedback"
     (feedbackSubmitted)="onFeedbackSubmitted()"
     (skipFeedback)="onSkipFeedback()">
   </app-feedback>

@@ -1,0 +1,20 @@
+{
+  "/api/trigger-webhook": {
+    "target": "https://croseline.app.n8n.cloud/webhook-test/feedback",
+    "secure": true,
+    "changeOrigin": true,
+    "logLevel": "debug",
+    "pathRewrite": {
+      "^/api/trigger-webhook": ""
+    }
+  },
+  "/api/chatbot": {
+    "target": "https://croseline.app.n8n.cloud/webhook-test/chatbot",
+    "secure": true,
+    "changeOrigin": true,
+    "logLevel": "debug",
+    "pathRewrite": {
+      "^/api/chatbot": ""
+    }
+  }
+}
